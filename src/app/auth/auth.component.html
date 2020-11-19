@@ -1,28 +1,100 @@
-<div class = "login">
+  <div class = "auth">
 
-  <div class = "text-center">
+    <div class = "text-center">
 
-    <div class = "form-signin">
-    
-      <h1 class = "title">MyBreakFaster</h1>
+      <div class = "form-signin">
+        
+        <div class = "login" [hidden] = "!router.url.includes('login')">
+
+          <h1 class = "title">MyBreakFaster</h1>
+        
+          <label for = "email" class="sr-only">Email</label>
+          <input type = "email" class="form-control" placeholder = "Digite o seu e-mail">
+          
+          <br>
+          
+          <label for = "senha" class = "sr-only">Senha</label>
+          <input type = "password" class = "form-control" placeholder = "Digite a sua senha">
+          
+          <br>
+          
+          <button [routerLink]="['/dashboard']" class = "btn btn-danger btn-block">Acessar</button>
+          
+          <br>
+          <a [routerLink]="['/auth/create-account']" style = "color: red">Criar conta</a>	
+          
+        </div>
+        
+        <div class = "create-account" [hidden] = "!router.url.includes('create-account')">
+          
+          <h2 class = "title">Crie sua conta</h2>
+
+          <input type = "text" class="form-control" placeholder = "Digite o seu nome">
+          
+          <br>
+
+          <select class="form-control">
+            <option selected>Estabelecimento</option>
+            <option>Usuário</option>
+          </select>
+
+          <br>
+
+          <input type = "text" class="form-control" placeholder = "Digite o seu CPF ou CNPJ">
+
+          <br>
+
+          <label for = "email-cadastro" class="sr-only">Email</label>
+          <input type = "text" class="form-control" placeholder = "Digite o seu email">
+          
+          <br>
+          
+          <label for = "senha-cadastro" class = "sr-only">Senha</label>
+          <input type = "password" class = "form-control" placeholder = "Digite a sua senha">
+          
+          <br>
+          
+          <label for = "confirma-senha" class = "sr-only">Confirmar Senha</label>
+          <input type = "password" class = "form-control" placeholder = "Confirme sua senha">			
+          
+          <br>
+
+          <input type = "text" class="form-control" placeholder = "Rua">
+
+          <br>
+
+          <input type = "number" class="form-control" placeholder = "Número">
+
+
+          <br>
+
+          <input type = "text" class="form-control" placeholder = "Bairro">
+
+          <br>
+
+          <input type = "number" class="form-control" placeholder = "CEP">
+
+          <br>
+
+
+          <input type = "number" class="form-control" placeholder = "Telefone">
+
+          <br>
+          
+          <select class="form-control">
+            <option selected>Brasil</option>
+          </select>
+          
+          <br>
+          
+
+          <button class = "btn btn-danger btn-block">Criar</button>
+          <br>
+          <a [routerLink]="['/auth/login']" style = "color: red">Cancelar</a>        
+        </div>
       
-      <label for = "email" class="sr-only">Email</label>
-      <input type = "email" class="form-control" placeholder = "Digite o seu e-mail">
-      
-      <br>
-      
-      <label for = "senha" class = "sr-only">Senha</label>
-      <input type = "password" class = "form-control" placeholder = "Digite a sua senha">
-      
-      <br>
-      
-      <button class = "btn btn-danger btn-block">Acessar</button>
-      
-      <br>
-      <a href = "#criarConta" style = "color: red">Criar conta</a>			
-    
-      <p class = "mt-5 mb-3 text-muted">© MyBreakFaster {{currentYear}}</p>			
+        <p class = "copyright mt-5 mb-3 text-muted">© MyBreakFaster {{currentYear}}</p>			
+      </div>
+
     </div>
-
   </div>
-</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -9,6 +10,6 @@ export class AuthComponent {
 
   public currentYear : number = new Date().getFullYear();
 
-  constructor() {
+  constructor(private router: Router) {
   }
 }
