@@ -3,15 +3,20 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { UserNavigationComponent } from './user-navigation/user-navigation.component';
-
-
+import { NavigationComponent } from './app-navigation/navigation.component';
+import { EstablishmentComponent } from './establishment/establishment.component';
 
 @NgModule({
   imports: [
     CommonModule,
     DashboardRoutingModule
   ],
-  declarations: [DashboardComponent, UserNavigationComponent],
+  declarations: [
+    DashboardComponent, 
+    UserNavigationComponent, 
+    NavigationComponent,
+    EstablishmentComponent
+  ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class DashboardModule { }

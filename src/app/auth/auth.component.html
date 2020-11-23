@@ -4,7 +4,7 @@
 
       <div class = "form-signin">
         
-        <div class = "login" [hidden] = "!router.url.includes('login')">
+        <div class = "login" [hidden] = "!getCurrentRoute('login')">
 
           <h1 class = "title">MyBreakFaster</h1>
         
@@ -18,77 +18,52 @@
           
           <br>
           
-          <button [routerLink]="['/dashboard']" class = "btn btn-danger btn-block">Acessar</button>
+          <button [routerLink]="['/dashboard/establishment']" class = "btn btn-danger btn-block">Acessar</button>
           
           <br>
           <a [routerLink]="['/auth/create-account']" style = "color: red">Criar conta</a>	
           
         </div>
         
-        <div class = "create-account" [hidden] = "!router.url.includes('create-account')">
+        <div class = "create-account" [hidden] = "!getCurrentRoute('create-account')">
           
           <h2 class = "title">Crie sua conta</h2>
 
-          <input type = "text" class="form-control" placeholder = "Digite o seu nome">
-          
-          <br>
+          <form [formGroup] = "createUserForm" (ngSubmit)="createUser()">
 
-          <select class="form-control">
-            <option selected>Estabelecimento</option>
-            <option>Usuário</option>
-          </select>
+            <input type = "text"  formControlName="name" class="form-control" placeholder = "Digite o seu nome">
+            
+            <br>
 
-          <br>
+            <select formControlName="type" class="form-control">
+              <option value = "STORE" selected>Estabelecimento</option>
+              <option value = "CLIENT">Usuário</option>
+            </select>
 
-          <input type = "text" class="form-control" placeholder = "Digite o seu CPF ou CNPJ">
+            <br>
 
-          <br>
+            <input formControlName="registration" type = "text" class="form-control" placeholder = "Digite o seu CPF ou CNPJ">
 
-          <label for = "email-cadastro" class="sr-only">Email</label>
-          <input type = "text" class="form-control" placeholder = "Digite o seu email">
-          
-          <br>
-          
-          <label for = "senha-cadastro" class = "sr-only">Senha</label>
-          <input type = "password" class = "form-control" placeholder = "Digite a sua senha">
-          
-          <br>
-          
-          <label for = "confirma-senha" class = "sr-only">Confirmar Senha</label>
-          <input type = "password" class = "form-control" placeholder = "Confirme sua senha">			
-          
-          <br>
+            <br>
 
-          <input type = "text" class="form-control" placeholder = "Rua">
+            <input formControlName="email" type = "text" class="form-control" placeholder = "Digite o seu email">
+            
+            <br>
+            
+            <input formControlName="password" type = "password" class = "form-control" placeholder = "Digite a sua senha">
+            
+            <br>
+            
+            <input type = "password" class = "form-control" placeholder = "Confirme sua senha">			
+            
+            <br>
 
-          <br>
+            <input formControlName="phoneNumber" type = "number" class="form-control" placeholder = "Telefone">
 
-          <input type = "number" class="form-control" placeholder = "Número">
-
-
-          <br>
-
-          <input type = "text" class="form-control" placeholder = "Bairro">
-
-          <br>
-
-          <input type = "number" class="form-control" placeholder = "CEP">
-
-          <br>
-
-
-          <input type = "number" class="form-control" placeholder = "Telefone">
-
-          <br>
-          
-          <select class="form-control">
-            <option selected>Brasil</option>
-          </select>
-          
-          <br>
-          
-
-          <button class = "btn btn-danger btn-block">Criar</button>
+            <br>
+            
+            <input type = "submit" class = "btn btn-danger btn-block" value = "Criar">
+          </form>
           <br>
           <a [routerLink]="['/auth/login']" style = "color: red">Cancelar</a>        
         </div>

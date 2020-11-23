@@ -1,1 +1,9 @@
-<app-user-navigation></app-user-navigation>
+<div class = "dashboard bg-light">
+    <app-user-navigation></app-user-navigation>
+    <app-navigation></app-navigation>
+    <ion-app>
+        <ion-router-outlet></ion-router-outlet>
+    </ion-app>
+    <app-establishment [hidden] = "!getCurrentRoute('establishment')"></app-establishment>
+    <!--<app-product></app-product>-->
+</div>
