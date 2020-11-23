@@ -7,8 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserNavigationComponent implements OnInit {
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
+
+  public toggleMenu() : void {
+
+  }
 
 }
