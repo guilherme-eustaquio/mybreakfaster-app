@@ -8,6 +8,9 @@ const routes: Routes = [
   },
   {
     path: 'establishment', component: DashboardComponent
+  },
+  {
+    path: 'user-menu', component: DashboardComponent
   }
 ];
 

@@ -3,17 +3,17 @@
 	<button class="navbar-toggler p-0 border-0" (click) = "toggleMenu()" type="button" data-toggle="offcanvas">
 		<span class="navbar-toggler-icon"></span>
 	</button>
-	<div class="navbar-collapse offcanvas-collapse">
+	<div [ngClass]="getCurrentClass()">
 		<div class = "mr-auto"></div>
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<a class="nav-link" id = "item-sobre">Sobre</a>
+				<a class="nav-link">Editar perfil</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" id = "item-ajuda">Ajuda</a>
+				<a class="nav-link">Ajuda</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" id = "item-logout">Sair</a>
+				<a class="nav-link">Sair</a>
 			</li>
 		</ul>
 	</div>
