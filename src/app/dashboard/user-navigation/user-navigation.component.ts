@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { JwtService } from 'src/app/services/jwt.service';
+import { JwtService } from 'src/app/services/auth/jwt.service';
 
 const openedMenuClass = "navbar-collapse offcanvas-collapse open";
 const closedMenuClass = "navbar-collapse offcanvas-collapse";
@@ -47,6 +47,7 @@ export class UserNavigationComponent implements OnInit {
 
   public logout() : void {
     this.jwtService.logout();
+    this.router.navigateByUrl('/auth/login');
   }
 
 }

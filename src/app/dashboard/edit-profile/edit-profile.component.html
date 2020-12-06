@@ -1,0 +1,28 @@
+<div class="container" style = "overflow: auto;">
+  <h2 class = "title edit-profile">Editar perfil</h2>
+
+  <div class="row">
+    <div class="col-md-12 order-md-1">
+      <form [formGroup] = "editUserForm" (ngSubmit)="edit()">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <input type="text" formControlName = "name" class="form-control" placeholder = "Nome" value="">
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="email" formControlName = "email" class="form-control" placeholder = "Email" value="">
+          </div>
+        </div>
+
+        <div class = "row">
+          <div class="col-md-6 mb-3">
+            <input type="password" formControlName = "password" class="form-control" placeholder = "Senha" value="">
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="text" formControlName = "phoneNumber" class="form-control" placeholder = "Telefone" value="">
+          </div>
+        </div>
+
+        <input type = "submit" class = "btn btn-danger btn-block" value = "Alterar">
+      </form>
+    </div>
+  </div>

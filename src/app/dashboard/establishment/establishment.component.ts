@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { InfiniteScroll } from 'src/app/miscellaneous/infinite-scroll.class';
+import { Establishment } from 'src/app/models/establishment.model';
+import { Pageable } from 'src/app/models/pageable.model';
+import { EstablishmentService } from 'src/app/services/bussiness/establishment.service';
 
 @Component({
   selector: 'app-establishment',
@@ -7,24 +12,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EstablishmentComponent implements OnInit {
 
-
-  private restaurants = [
-    {
-      name:"Burger Donalds",
-      description: "O melhor Hamburguer para as pessoas que trabalham de home office. O lanche é feito dentro da casa e distribuído via google hangouts!"
-    },
-    {
-      name: "Tenda",
-      description: "Venha conhecer a melhor lanchonete da UFU! Preços baratos e agora focados para a pandemia!"
-    }
-  ];
-
-  public getRestaurants() : any {
-    return this.restaurants;
+  private establishments : Establishment[];
+  private pagination : Pageable;
+  private offsetPagination : number = 0;
+  
+  constructor(private establishmentService : EstablishmentService, private router: Router) {
   }
 
-  constructor() { }
+  public getEstablishments() : Establishment[] {
+    return this.establishments;
+  }
 
-  ngOnInit() {}
+  doInfinite(infiniteScroll) {
+    
+    this.offsetPagination = InfiniteScroll.handlePageable(this.offsetPagination, this.pagination);
 
+    InfiniteScroll.doInfinite({
+      offsetPagination: this.offsetPagination,
+      pagination: this.pagination,
+      infiniteScroll:infiniteScroll
+    }, (complete) => {
+
+      this.establishmentService.get(this.offsetPagination).subscribe({
+        next: data => {
+          this.establishments = this.establishments.concat(data.content);
+          complete();
+        }
+      });    
+    });
+
+  }
+
+  ngOnInit() {
+    if(this.router.url.includes('/dashboard/establishment')) {
+      this.establishmentService.get(0).subscribe(establishments => {
+        this.pagination = new Pageable();
+        this.pagination.totalElements = establishments.totalElements;
+        this.pagination.totalPages = establishments.totalPages;
+        this.establishments = establishments.content;
+      });
+    }
+  }
 }

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
-import { DataService } from '../services/data.service';
-import { JwtService } from '../services/jwt.service';
+import { JwtService } from '../services/auth/jwt.service';
+import { DataService } from '../services/generic/data.service';
 
 @Component({
   selector: 'app-auth',
@@ -33,7 +33,13 @@ export class AuthComponent implements OnInit {
     public alertController: AlertController) {
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    if(this.jwtService.loggedIn) {
+      this.router.navigateByUrl('/dashboard/establishment');
+    }
+
+  }
 
   public getCurrentRoute(url : string) : boolean {
     return this.router.url.includes(url);
@@ -46,54 +52,22 @@ export class AuthComponent implements OnInit {
     this.jwtService.login(body.email, body.password).subscribe({
       next: data => {
         this.router.navigateByUrl("/dashboard/establishment");
-      },
-      error: error => {
-        this.presentAlert({
-          header: `Erro (${error.status})`,
-          subheader: "",
-          message: this.handleExceptionMessage(error.error)
-        });
       }
     });
   }
 
   public createUser() : void {
     
-    this.dataService.create('users', this.createUserForm.getRawValue()).subscribe({
+    this.dataService.post('users', this.createUserForm.getRawValue(), false).subscribe({
       next: data => {
-        console.log(data);
         this.presentAlert({
           header: "Alerta",
           subheader: "",
           message: "Usuário criado com sucesso!"
         });
         this.router.navigateByUrl("/auth/login");
-      },
-      error: error => {
-        this.presentAlert({
-          header: `Erro (${error.status})`,
-          subheader: "",
-          message: this.handleExceptionMessage(error.error)
-        });
       }
     });
-  }
-
-  private handleExceptionMessage(messages) : string {
-
-    if(Array.isArray(messages)) {
-
-      let messageHandle = "";
-
-      messages.forEach(message => {
-        messageHandle += message.message + "<br>";
-      });
-
-      return messageHandle;
-
-    } else {
-      return messages.message;
-    }
   }
 
   async presentAlert(message : any) {

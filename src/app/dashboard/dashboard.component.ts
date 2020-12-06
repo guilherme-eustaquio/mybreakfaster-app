@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtService } from '../services/jwt.service';
+import { JwtService } from '../services/auth/jwt.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +15,6 @@ export class DashboardComponent implements OnInit {
     if(!this.jwtService.loggedIn) {
       this.router.navigateByUrl('/auth/login');
     }
-  }
-
-  public logout() : void {
-
   }
 
   public getCurrentRoute(url : string) : boolean {

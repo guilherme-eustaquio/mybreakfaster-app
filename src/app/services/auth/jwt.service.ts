@@ -12,9 +12,11 @@ export class JwtService {
 
   public login(email : string, password : string) {
     
-    return this.httpClient.post<{access_token: string}>(`${API_URL}/v1/authorization/login`, {email, password}).pipe(
+    return this.httpClient.post<{token: string}>(`${API_URL}/v1/authorization/login`, {email, password}).pipe(
       tap(res => {
-        localStorage.setItem('access_token', res.access_token);
+        
+        localStorage.setItem('access_token', res.token);
+        console.log(localStorage.getItem('access_token'));
       })
     );
   }

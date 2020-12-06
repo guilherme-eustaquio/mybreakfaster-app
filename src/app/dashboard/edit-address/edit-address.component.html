@@ -1,0 +1,62 @@
+<div class = "container mt-3" style = "overflow: auto;" [hidden] = "!getCurrentRoute('addresses')">
+  <h2 class = "title edit-profile">Endereços</h2>
+
+  <input class = "btn btn-danger btn-block" [routerLink]="['/dashboard/address/add-address']" value = "Adicionar endereço">
+
+</div>
+
+
+<div class="container" style = "overflow: auto;" [hidden] = "!getCurrentRoute('add-address')">
+  <h2 class = "title edit-profile">Adicionar endereço</h2>
+  <div class="row">
+    <div class="col-md-12 order-md-1">
+      <form [formGroup] = "addAddress" (ngSubmit)="createAddress()">
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <select formControlName = "country" class="form-control">
+              <option *ngFor = "let country of countries" [value] = "state">{{country}}</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <select formControlName = "state" class="form-control">
+              <option *ngFor = "let state of states" [value] = "state">{{state}}</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <select formControlName = "city" class="form-control">
+              <option *ngFor = "let city of cities" [value] = "state">{{city}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <input type="text" formControlName = "zipCode" class="form-control" placeholder = "CEP" value="" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="text" formControlName = "number" class="form-control" placeholder = "Número" value="" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <input type="text"  formControlName = "neighborhood" class="form-control" placeholder = "Bairro" value="" required>
+          </div>
+        </div>
+
+
+        <div class="row">
+
+          <div class = "col-md-12 mb-3">
+            <input name = "main" formControlName = "main" type="checkbox">
+            <span class = "primary-text">Deixá-lo como primário</span>
+          </div>
+        </div>      
+        
+        <input type = "submit" class = "btn btn-danger btn-block" value = "Cadastrar">
+      </form>
+
+    </div>
+  </div>
+</div>

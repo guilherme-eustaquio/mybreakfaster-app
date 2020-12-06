@@ -29,7 +29,9 @@
     "@types/jquery": "^3.5.4",
     "bootstrap": "^4.5.3",
     "jquery": "^3.5.1",
+    "ngx-infinite-scroll": "^10.0.0",
     "rxjs": "~6.5.5",
+    "text-mask-addons": "^3.8.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },

@@ -1,0 +1,53 @@
+<div class="container" style = "overflow: auto;">
+  <h2 class = "title edit-profile">Forma de pagamento</h2>
+  <div class="row">
+    <div class="col-md-12 order-md-1">
+      <form [formGroup] = "addCard" (ngSubmit)="createCard()">
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <select formControlName="type" class="form-control">
+              <option value = "CREDIT">Crédito</option>
+              <option value = "DEBIT">Débito</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <select formControlName="flag" class="form-control">
+              <option value = "MASTERCARD">MasterCard</option>
+              <option value = "VISA">Visa</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <input type="number" formControlName = "number" class="form-control" placeholder = "Número" value="" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="date" formControlName = "expirationDate" class="form-control" placeholder = "Data de expiração" value="" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <input type="text"  formControlName = "name" class="form-control" placeholder = "Nome no cartão" value="" required>
+          </div>
+        </div>
+
+
+        <div class="row">
+
+          <div class = "col-md-12 mb-3">
+            <input name = "main" formControlName = "main" type="checkbox">
+            <span class = "primary-text">Deixá-lo como primário</span>
+          </div>
+        </div>      
+        
+        <input type = "submit" class = "btn btn-danger btn-block" value = "Cadastrar">
+
+
+      </form>
+
+    </div>
+  </div>
+</div>

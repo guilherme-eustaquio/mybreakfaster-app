@@ -96,7 +96,7 @@
 @media (max-width: 767.98px) {
   .offcanvas-collapse {
     position: fixed;
-    top: 56px; /* Height of navbar */
+    top: 45px; /* Height of navbar */
     bottom: 0;
     width: 100%;
     padding-right: 1rem;
@@ -164,10 +164,12 @@
 
 .user-navigation {
   background-color: #bf2525!important;
+  z-index: 99;
 }
 
 .app-navigation {
-  margin-top: 50px;
+  margin-top: 510px;
+  z-index: 98;
 }
 
 .image-icon {
@@ -182,3 +184,19 @@
 .lh-100 { line-height: 1; }
 .lh-125 { line-height: 1.25; }
 .lh-150 { line-height: 1.5; }
+
+.edit-profile {
+  text-align: center;
+  margin-top: 10% !important;
+  margin-bottom: 10% !important;
+}
+
+.primary-text {
+  font-size: 0.8em;
+  margin-left: 5px;
+}
+
+.card-image-icon {
+  width: 20px;
+  height: 20px;
+}

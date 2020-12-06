@@ -1,0 +1,39 @@
+<ion-content>
+  <div class = "container mt-3">
+    <h2 class = "title edit-profile">Cartões</h2>
+    <hr>
+    
+    <input class = "btn btn-danger btn-block mb-3" [routerLink]="['/dashboard/payment/add-card']" value = "Adicionar cartão">
+
+      
+      <ion-list>
+        <div class="row mb-2" *ngFor = "let card of cards">
+          <div class="col-md-12">
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+              <div class="col p-4 d-flex flex-column position-static">
+                <div class = "d-flex justify-content-between">
+                  <strong class="d-inline-block mb-2 text-primary">{{card.name}}</strong>
+                  <div class = "d-flex justify-content-end">
+                    <img [hidden] = "card.main" (click) = "setMyCardAsMain(card)" class = "card-image-icon" src = "assets/image/home.svg">
+                    <img (click)="deleteCard(card)" class = "card-image-icon" src = "assets/image/delete.svg">
+                  </div>
+                </div>
+                <h3 class="mb-0">{{card.flag}}</h3>
+                <div class="d-flex justify-content-between">
+                  <div class="mb-1 text-muted">{{card.type == 'CREDIT' ? 'Crédito' : 'Débito'}}</div>
+                  <div class="mb-1 text-muted">{{card.number}}</div>
+                  <div class="mb-1 text-muted">{{card.expirationDate}}</div>
+                </div>
+                <span [hidden] = "!card.main">PRINCIPAL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-list>
+
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+  </div>
+</ion-content>
