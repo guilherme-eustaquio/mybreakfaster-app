@@ -8,7 +8,7 @@ import { DataService } from '../generic/data.service';
 })
 export class AddressService {
 
-    private serviceName : string = "address";
+    private serviceName : string = "signed/user/addresses";
 
     constructor(private dataService : DataService) { }
 
@@ -16,10 +16,20 @@ export class AddressService {
         return this.dataService.post(this.serviceName, body, true);
     }
 
-    public getAddresses() : Observable<Address[]> {
+    public getAddresses(page : number) : Observable<any> {
 
-        let params = '?page=0&size=50&sort=main,desc';
+        let params = `?page=${page}&size=50`;
 
         return this.dataService.get(this.serviceName, true, params);
+    }
+
+    public deleteAddress(id : number) : Observable<any> {
+        let params = `/${id}`;
+        return this.dataService.delete(this.serviceName, params);
+    }
+
+    public upgradeAddress(id : number) : Observable<any> {
+        let params = `/${id}/main`;
+        return this.dataService.put(this.serviceName, [], params);
     }
 }

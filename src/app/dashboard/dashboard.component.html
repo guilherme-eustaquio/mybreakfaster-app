@@ -3,5 +3,5 @@
     <app-navigation></app-navigation>
     
     <app-establishment [hidden] = "!getCurrentRoute('establishment')"></app-establishment>
-    <!--<app-product></app-product>-->
+    <app-my-products [hidden] = "getCurrentRoute('my-products')"></app-my-products>
 </div>

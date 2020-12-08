@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageCode } from 'src/app/enum/message-code.enum';
 import { InfiniteScroll } from 'src/app/miscellaneous/infinite-scroll.class';
 import { Establishment } from 'src/app/models/establishment.model';
 import { Pageable } from 'src/app/models/pageable.model';
@@ -16,7 +17,8 @@ export class EstablishmentComponent implements OnInit {
   private pagination : Pageable;
   private offsetPagination : number = 0;
   
-  constructor(private establishmentService : EstablishmentService, private router: Router) {
+  constructor(private establishmentService : EstablishmentService, 
+    private router: Router) {
   }
 
   public getEstablishments() : Establishment[] {

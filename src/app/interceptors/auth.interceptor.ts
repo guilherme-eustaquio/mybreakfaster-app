@@ -14,7 +14,7 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(req).pipe(
           catchError((error: HttpErrorResponse) => {
             
-            if (error.status == 401) {
+            if (error.status == 401 || error.status == 0) {
               this.jwtService.logout();
               this.router.navigateByUrl('/auth/login');
             }

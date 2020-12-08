@@ -25,8 +25,6 @@ export class AlertInterceptor implements HttpInterceptor {
     
     private handleExceptionMessage(messages) : string {
 
-        console.log(messages);
-
         if(Array.isArray(messages)) {
     
           let messageHandle = "";

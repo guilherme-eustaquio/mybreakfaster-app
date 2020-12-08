@@ -1,0 +1,34 @@
+<ion-content>
+  <div class = "container mt-3">
+    <h2 class = "title edit-profile">Endereços</h2>
+    <hr>
+    <input class = "btn btn-danger btn-block mb-3" [routerLink]="['/dashboard/address/add-address']" value = "Adicionar endereço">
+    <ion-list>
+      <div class="row mb-2" *ngFor = "let address of addresses">
+        <div class="col-md-12">
+          <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+              <div class = "d-flex justify-content-between">
+                <strong class="d-inline-block mb-2 text-primary">{{address.street}}</strong>
+                <div class = "d-flex justify-content-end">
+                  <img [hidden] = "address.main" (click) = "setMyAddressAsMain(address)" class = "card-image-icon" src = "assets/image/home.svg">
+                  <img (click)="deleteAddress(address)" class = "card-image-icon" src = "assets/image/delete.svg">
+                </div>
+              </div>
+              <h3 class="mb-0">{{address.neighborhood}}</h3>
+              <div class="d-flex justify-content-between">
+                <div class="mb-1 text-muted">{{address.city}}</div>
+                <div class="mb-1 text-muted">{{address.state}}</div>
+                <div class="mb-1 text-muted">{{address.country}}</div>
+              </div>
+              <span [hidden] = "!address.main">PRINCIPAL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+</ion-content>

@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
-import { EditAddressComponent } from './edit-address/edit-address.component';
+import { AddAddressComponent } from './add-address/add-address.component';
 import { AddPaymentComponent } from './add-payment/add-payment.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
+import { ListAddressComponent } from './list-address/list-address.component';
 
 const routes: Routes = [
   {
@@ -26,10 +27,10 @@ const routes: Routes = [
     path: 'payment/add-card', component: AddPaymentComponent
   },
   {
-    path: 'address/addresses', component: EditAddressComponent
+    path: 'address/addresses', component: ListAddressComponent
   },
   {
-    path: 'address/add-address', component: EditAddressComponent
+    path: 'address/add-address', component: AddAddressComponent
   }
 ];
 

@@ -4,6 +4,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { JwtService } from '../services/auth/jwt.service';
 import { DataService } from '../services/generic/data.service';
+import { UserService } from '../services/bussiness/user.service';
+import { AlertDefault } from '../miscellaneous/alert-default.class';
 
 @Component({
   selector: 'app-auth',
@@ -29,8 +31,7 @@ export class AuthComponent implements OnInit {
 
   constructor(private router: Router,
     private dataService : DataService,
-    private jwtService : JwtService,
-    public alertController: AlertController) {
+    private jwtService : JwtService) {
   }
 
   ngOnInit(): void {
@@ -51,7 +52,7 @@ export class AuthComponent implements OnInit {
 
     this.jwtService.login(body.email, body.password).subscribe({
       next: data => {
-        this.router.navigateByUrl("/dashboard/establishment");
+        this.router.navigateByUrl("/dashboard");
       }
     });
   }
@@ -60,26 +61,10 @@ export class AuthComponent implements OnInit {
     
     this.dataService.post('users', this.createUserForm.getRawValue(), false).subscribe({
       next: data => {
-        this.presentAlert({
-          header: "Alerta",
-          subheader: "",
-          message: "Usuário criado com sucesso!"
-        });
+
+        AlertDefault.commonAlert("Usuário criado com sucesso!");
         this.router.navigateByUrl("/auth/login");
       }
     });
   }
-
-  async presentAlert(message : any) {
-    const alert = await this.alertController.create({
-      header: message.header,
-      subHeader: message.subHeader,
-      message: message.message,
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
-
-
 }

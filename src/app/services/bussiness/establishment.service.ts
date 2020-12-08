@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Establishment } from 'src/app/models/establishment.model';
 import { DataService } from '../generic/data.service';
 
 @Injectable({

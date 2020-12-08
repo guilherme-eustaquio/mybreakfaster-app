@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { JwtService } from 'src/app/services/auth/jwt.service';
+import { BehaviorSubject } from 'rxjs';
+import { MessageCode } from 'src/app/enum/message-code.enum';
+import { MessageViewModel } from 'src/app/models/message-view.model';
+import { MessageService } from 'src/app/services/generic/message.service';
+import { SessionHandler } from 'src/app/miscellaneous/session-handler.class';
 
 const openedMenuClass = "navbar-collapse offcanvas-collapse open";
 const closedMenuClass = "navbar-collapse offcanvas-collapse";
@@ -17,9 +22,33 @@ export class UserNavigationComponent implements OnInit {
 
   constructor(private router: Router, 
     private location: Location,
-    private jwtService: JwtService) {}
+    private jwtService: JwtService,
+    private cdRef: ChangeDetectorRef, 
+    private messageService : MessageService,) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.initializeMenu();
+  }
+
+  public userType$ = new BehaviorSubject<boolean>(false);
+
+  public initializeMenu() : void {
+    this.messageService.listenMessageFromAnotherComponent().subscribe((data : MessageViewModel) => {
+      if(data != null) {
+        switch(data.exec) {
+          case MessageCode.SET_MENU_TYPE_USER:
+            this.userType$.next(this.getUserType());
+            this.cdRef.detectChanges();
+            break;
+        }
+      }
+    });
+  }
+
+
+  private getUserType() : boolean {
+    return SessionHandler.getUserDetails().type != 'CLIENT';
+  }
 
   public getCurrentClass() : string {    
 

@@ -9,10 +9,12 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { EstablishmentService } from '../services/bussiness/establishment.service';
 import { UserService } from '../services/bussiness/user.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EditAddressComponent } from './edit-address/edit-address.component';
 import { AddressService } from '../services/bussiness/address.service';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
 import { AddPaymentComponent } from './add-payment/add-payment.component';
+import { AddAddressComponent } from './add-address/add-address.component';
+import { ListAddressComponent } from './list-address/list-address.component';
+import { MyProductsComponent } from './my-products/my-products.component';
 
 @NgModule({
   imports: [
@@ -29,7 +31,9 @@ import { AddPaymentComponent } from './add-payment/add-payment.component';
     PaymentFormComponent,
     AddPaymentComponent,
     EditProfileComponent,
-    EditAddressComponent
+    AddAddressComponent,
+    ListAddressComponent,
+    MyProductsComponent
   ],
   providers: [
     EstablishmentService,

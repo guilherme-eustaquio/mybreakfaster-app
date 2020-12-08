@@ -1,5 +1,6 @@
 <div class="nav-scroller bg-white box-shadow">
-	<nav class="nav nav-underline">
+	
+	<nav class="nav nav-underline" *ngIf = "!(userType$ | async)">
 		<a [routerLink]="['/dashboard/establishment']" [routerLinkActive]="['active']" class="nav-link">
 			<img class = "image-icon" src = "./assets/image/restaurant.svg">
 			Restaurantes
@@ -7,6 +8,18 @@
 		<a class="nav-link">
 			<img class = "image-icon" src = "./assets/image/order.svg">
 			Meus pedidos
+		</a>
+
+		<a [routerLink]="['/dashboard/my-products']" class="nav-link" *ngIf = "userType$ | async">
+			<img class = "image-icon" src = "./assets/image/products.svg">
+			Meus Produtos
+		</a>
+	</nav>
+
+	<nav class="nav nav-underline" *ngIf = "userType$ | async">
+		<a [routerLink]="['/dashboard/my-products']" class="nav-link" *ngIf = "userType$ | async">
+			<img class = "image-icon" src = "./assets/image/products.svg">
+			Meus Produtos
 		</a>
 	</nav>
 </div>

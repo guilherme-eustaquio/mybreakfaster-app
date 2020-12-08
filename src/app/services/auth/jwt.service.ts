@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
+import { SessionHandler } from 'src/app/miscellaneous/session-handler.class';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,15 @@ export class JwtService {
       tap(res => {
         
         localStorage.setItem('access_token', res.token);
-        console.log(localStorage.getItem('access_token'));
+        SessionHandler.deleteUserDetails();
+
       })
     );
   }
 
   public logout() : void {
     localStorage.removeItem('access_token');
+    SessionHandler.deleteUserDetails();
   }
 
   public get loggedIn(): boolean{
