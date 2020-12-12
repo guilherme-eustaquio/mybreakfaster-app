@@ -1,3 +1,4 @@
+import { MessageService } from './../../services/generic/message.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertDefault } from 'src/app/miscellaneous/alert-default.class';
@@ -5,6 +6,7 @@ import { InfiniteScroll } from 'src/app/miscellaneous/infinite-scroll.class';
 import { Card } from 'src/app/models/card.model';
 import { Pageable } from 'src/app/models/pageable.model';
 import { PaymentService } from 'src/app/services/bussiness/payment.service';
+import { MessageCode } from 'src/app/enum/message-code.enum';
 
 @Component({
   selector: 'app-payment-form',
@@ -18,7 +20,8 @@ export class PaymentFormComponent implements OnInit {
   private offsetPagination : number = 0;
 
   constructor(private paymentService : PaymentService,
-    private router : Router) {}
+    private router : Router,
+    private messageService : MessageService) {}
 
   ngOnInit() {
     this.paymentService.getCards(0).subscribe({
@@ -27,8 +30,21 @@ export class PaymentFormComponent implements OnInit {
         this.pagination = new Pageable();
         this.pagination.totalElements = data.totalElements;
         this.pagination.totalPages = data.totalPages;
+        this.waitForUpdate();
       }
     });
+  }
+
+  public waitForUpdate() : void {
+    this.messageService.listenMessageFromAnotherComponent().subscribe(data => {
+      if(data.exec != null) {
+        switch(data.exec) {
+          case MessageCode.UPDATE_MY_CARDS_LIST:
+            this.cards.unshift(data.message);
+            break;
+        }
+      }
+    })
   }
 
   public getCurrentRoute(url : string) : boolean {

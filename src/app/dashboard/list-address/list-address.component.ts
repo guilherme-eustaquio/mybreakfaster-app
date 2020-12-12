@@ -1,3 +1,4 @@
+import { MessageService } from './../../services/generic/message.service';
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { AlertDefault } from 'src/app/miscellaneous/alert-default.class';
@@ -5,6 +6,7 @@ import { InfiniteScroll } from 'src/app/miscellaneous/infinite-scroll.class';
 import { Address } from 'src/app/models/address.model';
 import { Pageable } from 'src/app/models/pageable.model';
 import { AddressService } from 'src/app/services/bussiness/address.service';
+import { MessageCode } from 'src/app/enum/message-code.enum';
 
 @Component({
   selector: 'app-list-address',
@@ -19,7 +21,8 @@ export class ListAddressComponent implements OnInit {
   private offsetPagination : number = 0;
 
   constructor(private addressService : AddressService,
-    public alertController: AlertController) { }
+    public alertController: AlertController,
+    public messageService : MessageService) { }
 
   ngOnInit() {
 
@@ -29,6 +32,7 @@ export class ListAddressComponent implements OnInit {
         this.pagination = new Pageable();
         this.pagination.totalElements = data.totalElements;
         this.pagination.totalPages = data.totalPages;
+        this.waitForUpdate();
       }
     })
   }
@@ -49,6 +53,18 @@ export class ListAddressComponent implements OnInit {
         }
       });
     });
+  }
+
+  public waitForUpdate() : void {
+    this.messageService.listenMessageFromAnotherComponent().subscribe(data => {
+      if(data.exec != null) {
+        switch(data.exec) {
+          case MessageCode.UPDATE_MY_ADDRESS_LIST:
+            this.addresses.unshift(data.message);
+            break;
+        }
+      }
+    })
   }
 
   public deleteAddress(address : any) : void {

@@ -1,31 +1,43 @@
-<div class="album py-3 bg-light">
-  <div class="container">
+<ion-content>
+  <div class="album py-3">
+    <div class="container">
+      <input class = "btn btn-danger btn-block mb-3" [routerLink]="['/dashboard/my-products/add-product']" value = "Adicionar produto">
 
-    <input class = "btn btn-danger btn-block mb-3" [routerLink]="['/dashboard/address/add-address']" value = "Adicionar produto">
+      <ion-list>
+        <div class="row" *ngFor = "let product of products">
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <div class="card-body">
+                <h3>{{product.name}}</h3>
+                <div class="d-flex justify-content-between">
+                  <small class="text-muted">{{product.active ? 'Ativo' : 'Inativo'}}</small>
+                  <small class="text-muted">Tipo: {{parseProductType(product.type)}}</small>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <small class="text-muted">Valor: {{getFormattedPrice(product.price)}}</small>
+                  <small class="text-muted">Qtd: {{product.amount}}</small>
+                </div>
 
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-          <div class="card-body">
-            <h3>Samduba Mix</h3>
-            <div class="d-flex justify-content-between">
-              <small class="text-muted">ATIVO</small>
-              <small class="text-muted">Tipo: Delivery</small>
-            </div>
-            <br>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Apagar</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
+                <br>
+                <p class="card-text">{{product.description}}</p>
+
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" (click) = "deleteProduct(product)" class="btn btn-sm btn-outline-secondary">Apagar</button>
+                    <button type="button" (click) = "editProduct(product)" class="btn btn-sm btn-outline-secondary">Editar</button>
+                  </div>
+                </div>
               </div>
-              <small class="text-muted">Valor: R$ 35,00</small>
-              <small class="text-muted">Qtd: 10</small>
-
             </div>
           </div>
         </div>
-      </div>
+      </ion-list>
+
+
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
     </div>
   </div>
-</div>
+</ion-content>

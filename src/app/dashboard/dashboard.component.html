@@ -1,7 +1,8 @@
 <div class = "dashboard bg-light">
     <app-user-navigation></app-user-navigation>
     <app-navigation></app-navigation>
-    
     <app-establishment [hidden] = "!getCurrentRoute('establishment')"></app-establishment>
-    <app-my-products [hidden] = "getCurrentRoute('my-products')"></app-my-products>
+    <app-my-products [hidden] = "!getCurrentRoute('my-products')"></app-my-products>
+    <app-promotions [hidden] = "!getCurrentRoute('promotions')"></app-promotions>
+    <app-list-products [hidden] = "!getCurrentRoute('list-products')"></app-list-products>
 </div>

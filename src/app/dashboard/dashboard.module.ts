@@ -1,3 +1,7 @@
+import { ListProductsComponent } from './list-products/list-products.component';
+import { ManipulatePromotionComponent } from './manipulate-promotion/manipulate-promotion.component';
+import { PromotionsComponent } from './promotions/promotions.component';
+import { PromotionService } from './../services/bussiness/promotion.service';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -15,6 +19,8 @@ import { AddPaymentComponent } from './add-payment/add-payment.component';
 import { AddAddressComponent } from './add-address/add-address.component';
 import { ListAddressComponent } from './list-address/list-address.component';
 import { MyProductsComponent } from './my-products/my-products.component';
+import { ProductService } from '../services/bussiness/product.service';
+import { ManipulateProductComponent } from './manipulate-product/manipulate-product.component';
 
 @NgModule({
   imports: [
@@ -33,12 +39,18 @@ import { MyProductsComponent } from './my-products/my-products.component';
     EditProfileComponent,
     AddAddressComponent,
     ListAddressComponent,
-    MyProductsComponent
+    MyProductsComponent,
+    ManipulateProductComponent,
+    ManipulatePromotionComponent,
+    PromotionsComponent,
+    ListProductsComponent
   ],
   providers: [
     EstablishmentService,
     UserService,
-    AddressService
+    AddressService,
+    ProductService,
+    PromotionService
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

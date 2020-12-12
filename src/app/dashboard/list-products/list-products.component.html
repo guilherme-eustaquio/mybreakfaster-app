@@ -1,0 +1,60 @@
+<ion-content>
+  <div class="album py-3">
+    <div class="container">
+      <h3 class = "title edit-profile">Sacola</h3>
+
+      <ul class="list-group mb-3">
+        <li *ngFor = "let b of bag" class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">{{b.name}}</h6>
+          </div>
+          <span class="text-muted">{{getFormattedPrice(b.price)}} - {{getFormattedPrice(b.price * (1 - b.promotionPercentage / 1000))}}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Total:</span>
+          <strong>{{getFormattedPrice(total)}}</strong>
+        </li>
+      </ul>
+      
+      <input class = "btn btn-danger btn-block mb-3" [routerLink]="['/dashboard/my-products/add-product']" value = "Fazer pedido">
+      <hr>
+      <h3 class = "title edit-profile">Produtos</h3>
+
+
+      <ion-list>
+        <div class="row" *ngFor = "let product of products">
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+                  <h3>{{product.name}}</h3>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" (click) = "selectProduct(product)">
+                  </div>
+                </div>  
+                <div class="d-flex justify-content-between">
+
+                  <div *ngIf = "product.promotionPercentage > 0">
+                    <small class="text-muted">Desconto: {{product.promotionPercentage / 1000 | percent}}</small>
+                  </div>
+                  <small class="text-muted">Tipo: {{parseProductType(product.type)}}</small>
+                </div>
+                <br>
+                <p class="card-text">{{product.description}}</p>
+                <div class="d-flex justify-content-between align-items-center">                
+                  <small class="text-muted">Valor: {{getFormattedPrice(product.price)}}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-list>
+
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+    </div>
+  </div>
+</ion-content>

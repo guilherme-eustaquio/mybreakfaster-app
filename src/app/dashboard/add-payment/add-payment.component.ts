@@ -1,4 +1,6 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { MessageCode } from 'src/app/enum/message-code.enum';
+import { MessageService } from './../../services/generic/message.service';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertDefault } from 'src/app/miscellaneous/alert-default.class';
@@ -24,16 +26,15 @@ export class AddPaymentComponent implements OnInit {
   public cards : Card[] = [];
 
   constructor(private paymentService : PaymentService,
-    private router : Router) {}
+    private router : Router,
+    private messsageService : MessageService) {}
 
   public createCard() : void {
     this.paymentService.addCard(this.addCard.getRawValue()).subscribe({
       next: data => {
-        
         AlertDefault.commonAlert("Cartão criado com sucesso!");
-
         this.router.navigateByUrl('dashboard/payment/cards');
-
+        this.messsageService.sendMessageToAnotherComponent(MessageCode.UPDATE_MY_CARDS_LIST, data);
       }
     })
   }

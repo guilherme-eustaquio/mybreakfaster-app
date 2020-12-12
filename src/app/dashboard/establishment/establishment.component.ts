@@ -1,6 +1,6 @@
+import { AlertDefault } from 'src/app/miscellaneous/alert-default.class';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessageCode } from 'src/app/enum/message-code.enum';
 import { InfiniteScroll } from 'src/app/miscellaneous/infinite-scroll.class';
 import { Establishment } from 'src/app/models/establishment.model';
 import { Pageable } from 'src/app/models/pageable.model';
@@ -16,6 +16,11 @@ export class EstablishmentComponent implements OnInit {
   private establishments : Establishment[];
   private pagination : Pageable;
   private offsetPagination : number = 0;
+  private types = [
+    'DELIVERY',
+    'WITHDRAWAL_ON_STORE',
+    'DELIVERY_AND_WITHDRAWAL'
+  ];
   
   constructor(private establishmentService : EstablishmentService, 
     private router: Router) {
@@ -42,7 +47,24 @@ export class EstablishmentComponent implements OnInit {
         }
       });    
     });
+  }
 
+  public openEstablishment(establishment) : void {
+    AlertDefault.indentifyPlace(() => {
+      this.setPlace(establishment, this.types[1])
+    }, () => {
+      this.setPlace(establishment, this.types[0])
+    });
+  }
+
+  public setPlace(establishment, type) : void {
+
+    let settings = {
+      id: establishment.id,
+      type: type
+    };
+
+    this.router.navigate(['/dashboard/list-products'], {queryParams:settings})
   }
 
   ngOnInit() {

@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
       this.userService.getUserDetails().subscribe({
         next: (data) => {
           SessionHandler.setUserDetails(data);
-          this.messageService.sendMessageToAnotherComponent(MessageCode.SET_MENU_TYPE_NAVIGATION, {});
+          this.messageService.sendMessageToAnotherComponent(MessageCode.SET_MENU_TYPE_NAVIGATION, true);
           this.messageService.sendMessageToAnotherComponent(MessageCode.SET_MENU_TYPE_USER, {});
         }
       })
@@ -36,8 +36,6 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
       this.router.navigateByUrl('/auth/login');
       return;
     }
-
-
   }
 
   ngAfterViewInit(): void {

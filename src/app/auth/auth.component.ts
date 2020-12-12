@@ -37,7 +37,7 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {
 
     if(this.jwtService.loggedIn) {
-      this.router.navigateByUrl('/dashboard/establishment');
+      this.router.navigateByUrl('/dashboard');
     }
 
   }

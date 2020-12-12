@@ -1,0 +1,51 @@
+<div class="container" style = "overflow: auto;">
+  <h2 class = "title edit-profile">{{title}}</h2>
+  <div class="row">
+    <div class="col-md-12 order-md-1">
+      <form [formGroup] = "myProduct" (ngSubmit)="manipulateProduct()">
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <input type="text"  formControlName = "name" class="form-control" placeholder = "Nome do produto" value="">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <textarea class="form-control" formControlName = "description" placeholder="Descrição" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <select formControlName="type" class="form-control">
+              <option value = "DELIVERY">Somente Delivery</option>
+              <option value = "WITHDRAWAL_ON_STORE">Somente no estabelecimento</option>
+              <option value = "DELIVERY_AND_WITHDRAWAL">Estabelecimento e delivery</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <input type="number" formControlName = "price" class="form-control" placeholder = "Preço" value="">
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="number" formControlName = "amount" class="form-control" placeholder = "Quantidade" value="">
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class = "col-md-12 mb-3">
+            <input name = "active" formControlName = "active" type="checkbox">
+            <span class = "primary-text">Deixá-lo ativo</span>
+          </div>
+        </div>      
+        
+        <input type = "submit" class = "btn btn-danger btn-block" value = {{button}}>
+      </form>
+
+    </div>
+  </div>
+</div>

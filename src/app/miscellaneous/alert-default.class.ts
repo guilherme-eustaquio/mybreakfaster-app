@@ -38,4 +38,28 @@ export class AlertDefault {
         await alert.present();
     }
 
+    public static async indentifyPlace(yes, no) {
+
+      const alert = await this.alertController.create({
+          header: 'Alerta',
+          message: "Você está no restaurante?",
+          buttons: [
+            {
+              text: 'Sim',
+              handler: () => {
+                yes();
+              }
+            }, 
+            {
+              text: 'não',
+              handler: () => {
+                no();
+              }
+            }
+          ]
+      });
+    
+      await alert.present();
+  }
+
 }

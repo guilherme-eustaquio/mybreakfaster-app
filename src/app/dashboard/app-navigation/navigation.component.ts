@@ -22,11 +22,13 @@ export class NavigationComponent implements OnInit {
   public userType$ = new BehaviorSubject<boolean>(false);
 
   public initializeMenu() : void {
+    
     this.messageService.listenMessageFromAnotherComponent().subscribe((data : MessageViewModel) => {
       
       if(data != null) {
         switch(data.exec) {
           case MessageCode.SET_MENU_TYPE_NAVIGATION:
+            
             this.userType$.next(this.getUserType());
             this.cdRef.detectChanges();
             
@@ -51,7 +53,7 @@ export class NavigationComponent implements OnInit {
   private defineMainRoute() : void {
 
     if(this.getUserType()) { // establishment 
-      this.router.navigateByUrl('dashboard');
+      this.router.navigateByUrl('dashboard/my-products');
     } else {
       this.router.navigateByUrl('dashboard/establishment');
     }

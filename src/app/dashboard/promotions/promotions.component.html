@@ -1,0 +1,38 @@
+<ion-content>
+  <div class="album py-3">
+    <div class="container">
+
+      <input class = "btn btn-danger btn-block mb-3" [routerLink]="['/dashboard/promotions/add-promotion']" value = "Adicionar promoção">
+
+      <ion-list>
+        <div class="row" *ngFor = "let promotion of promotions">
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <div class="card-body">
+                <h3>{{promotion.title}}</h3>
+                <div class="d-flex justify-content-between">
+                  <small class="text-muted">Data inicial:{{promotion.initialDate}}</small>
+                  <small class="text-muted">Data final:{{promotion.finalDate}}</small>
+                </div>
+                <br>
+                <p class="card-text">{{promotion.description}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" (click) = "editPromotion(promotion)" class="btn btn-sm btn-outline-secondary">Editar</button>
+                  </div>
+                  <small class="text-muted">Desconto: {{promotion.percentage | percent}}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-list>
+
+
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+    </div>
+  </div>
+</ion-content>

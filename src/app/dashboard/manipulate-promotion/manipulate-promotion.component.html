@@ -1,0 +1,48 @@
+<div class="container" style = "overflow: auto;">
+  <h2 class = "title edit-profile">{{title}}</h2>
+  <div class="row">
+    <div class="col-md-12 order-md-1">
+      <form [formGroup] = "promotion" (ngSubmit)="manipulatePromotion()">
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <input type="text"  formControlName = "title" class="form-control" placeholder = "Título" value="">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <textarea class="form-control" formControlName = "description" placeholder="Descrição" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <input type="date"  formControlName = "initialDate" class="form-control" placeholder = "Data inicial">
+          </div>
+          <div class="col-md-6 mb-3">
+            <input type="date"  formControlName = "finalDate" class="form-control" placeholder = "Data final">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <input type="number" formControlName = "percentage" class="form-control" placeholder = "Porcentagem">
+          </div>
+        </div>
+        
+        <hr>
+
+        <div class="form-group">
+          <select formControlName="products" multiple class="form-control">
+            <option *ngFor = "let product of products" value = {{product.id}}>
+              {{product.name}}
+            </option>
+          </select>
+        </div>
+
+        <input type = "submit" class = "btn btn-danger btn-block" value = {{button}}>
+      </form>
+      <br>
+    </div>
+  </div>
+</div>
