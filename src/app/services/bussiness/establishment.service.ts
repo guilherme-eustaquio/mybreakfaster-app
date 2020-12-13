@@ -11,10 +11,10 @@ export class EstablishmentService {
 
     constructor(private dataService : DataService) { }
 
-    public get(page : number) :  Observable<any> {
+    public get(page : number, city : string) :  Observable<any> {
 
         let params : string = "";
-        params = `?page=${page}&size=10&sort=desc`;
+        params = `?page=${page}&size=10&sort=desc&city=${city}`;
         return this.dataService.get(this.serviceName, true, params);
     }
 }

@@ -16,6 +16,23 @@ export class AlertDefault {
         await alert.present();
     } 
 
+    public static async obrigatoryRegister(message, callback) {
+
+      const alert = await AlertDefault.alertController.create({
+          header: 'Alerta',
+          subHeader: "",
+          message: message,
+          buttons: [              {
+            text: 'OK',
+            handler: () => {
+              callback();
+            }
+          }]
+      });
+    
+      await alert.present();
+    } 
+
     public static async confirmationAlert(message, confirm) {
 
         const alert = await this.alertController.create({

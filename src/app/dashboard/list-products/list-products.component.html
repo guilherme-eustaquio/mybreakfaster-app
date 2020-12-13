@@ -43,6 +43,7 @@
                     <small class="text-muted">Desconto: {{product.promotionPercentage / 1000 | percent}}</small>
                   </div>
                 </div>
+                <hr *ngIf = "product.selected">
                 <div class="input-group mt-3 input-group-sm" *ngIf = "product.selected">
                   <div class="input-group-append">
 

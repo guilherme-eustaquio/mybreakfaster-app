@@ -1,3 +1,4 @@
+import { DateFormatter } from './../../miscellaneous/date-formatter.class';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageCode } from 'src/app/enum/message-code.enum';
@@ -85,7 +86,6 @@ export class PromotionsComponent implements OnInit {
           this.pagination.totalPages = data.totalPages;
           complete();
           this.offsetPagination = 0;
-
         }
       })
     });
@@ -93,6 +93,10 @@ export class PromotionsComponent implements OnInit {
   
   public getFormattedPrice(amount: number) {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(amount);
+  }
+
+  public getFormattedDate(date : string) : string {
+    return DateFormatter.getFormattedDate(date);
   }
 
   public editPromotion(promotion : any) : void {

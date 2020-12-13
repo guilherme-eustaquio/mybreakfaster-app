@@ -1,3 +1,4 @@
+import { SessionHandler } from './../../miscellaneous/session-handler.class';
 import { MessageService } from './../../services/generic/message.service';
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
@@ -116,6 +117,11 @@ export class ListAddressComponent implements OnInit {
           });
 
           address.main = true;
+
+          let userDetails = SessionHandler.getUserDetails();
+          userDetails.address[0] = address;
+
+          SessionHandler.setUserDetails(userDetails);
 
           AlertDefault.commonAlert("Endereço definido como principal!");
         }

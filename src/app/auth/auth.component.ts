@@ -6,6 +6,7 @@ import { JwtService } from '../services/auth/jwt.service';
 import { DataService } from '../services/generic/data.service';
 import { UserService } from '../services/bussiness/user.service';
 import { AlertDefault } from '../miscellaneous/alert-default.class';
+import { SessionHandler } from '../miscellaneous/session-handler.class';
 
 @Component({
   selector: 'app-auth',
@@ -37,7 +38,12 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {
 
     if(this.jwtService.loggedIn) {
-      this.router.navigateByUrl('/dashboard');
+      if(SessionHandler.getUserDetails().type == "STORE") {
+        this.router.navigateByUrl("/dashboard/my-products");
+      }
+      else {
+        this.router.navigateByUrl("/dashboard/establishment");
+      }
     }
 
   }

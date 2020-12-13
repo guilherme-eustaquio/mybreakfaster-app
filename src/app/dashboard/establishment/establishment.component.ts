@@ -1,3 +1,4 @@
+import { SessionHandler } from './../../miscellaneous/session-handler.class';
 import { AlertDefault } from 'src/app/miscellaneous/alert-default.class';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -32,7 +33,7 @@ export class EstablishmentComponent implements OnInit {
 
   public doRefresh(event) {
     InfiniteScroll.doRefresh(event, (complete) => {
-      this.establishmentService.get(0).subscribe({
+      this.establishmentService.get(0, SessionHandler.getUserDetails().address[0].city).subscribe({
         next:(data) => {
           this.establishments = data.content;
           this.pagination = new Pageable();
@@ -56,7 +57,7 @@ export class EstablishmentComponent implements OnInit {
       infiniteScroll:infiniteScroll
     }, (complete) => {
 
-      this.establishmentService.get(this.offsetPagination).subscribe({
+      this.establishmentService.get(this.offsetPagination, SessionHandler.getUserDetails().address[0].city).subscribe({
         next: data => {
           this.establishments = this.establishments.concat(data.content);
           complete();
@@ -83,14 +84,35 @@ export class EstablishmentComponent implements OnInit {
     this.router.navigate(['/dashboard/list-products'], {queryParams:settings})
   }
 
+  public handleAddress(address : any) : any {
+    return {
+      street: address[0].street,
+      number: address[0].number,
+      neighborhood: address[0].neighborhood,
+      city: address[0].city
+    };
+  }
+
   ngOnInit() {
+
     if(this.router.url.includes('/dashboard/establishment')) {
-      this.establishmentService.get(0).subscribe(establishments => {
-        this.pagination = new Pageable();
-        this.pagination.totalElements = establishments.totalElements;
-        this.pagination.totalPages = establishments.totalPages;
-        this.establishments = establishments.content;
-      });
+      
+      if(SessionHandler.getUserDetails().address.length == 0) {
+        
+        AlertDefault.obrigatoryRegister("Seja bem vindo! Você não tem ainda um endereço cadastrado!", () => {
+          this.router.navigateByUrl('dashboard/address/add-address');
+        });
+
+        
+      } else {
+
+        this.establishmentService.get(0, SessionHandler.getUserDetails().address[0].city).subscribe(establishments => {
+          this.pagination = new Pageable();
+          this.pagination.totalElements = establishments.totalElements;
+          this.pagination.totalPages = establishments.totalPages;
+          this.establishments = establishments.content;
+        });
+      }
     }
   }
 }

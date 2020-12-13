@@ -23,6 +23,11 @@ export class AddressService {
         return this.dataService.get(this.serviceName, true, params);
     }
 
+    public getMainAddress() : Observable<any> {
+        let params = `?page=0&size=1&main=true`;
+        return this.dataService.get(this.serviceName, true, params);
+    }
+
     public deleteAddress(id : number) : Observable<any> {
         let params = `/${id}`;
         return this.dataService.delete(this.serviceName, params);

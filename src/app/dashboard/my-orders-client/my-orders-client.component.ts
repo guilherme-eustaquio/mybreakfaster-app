@@ -20,7 +20,7 @@ export class MyOrdersClientComponent implements OnInit {
   public orders : Order[];
   private offsetPagination : number = 0;
   private pagination : Pageable;
-
+  
   constructor(private orderService : OrderService, 
     private messageService : MessageService,
     private router : Router) { }
@@ -30,6 +30,9 @@ export class MyOrdersClientComponent implements OnInit {
     if(this.router.url.includes('/dashboard/my-orders-client')) {
       this.orderService.getClientOrders(0).subscribe({
         next:(data) => {
+
+          data.content = this.initializeDetail(data.content);
+
           this.orders = data.content;
           this.pagination = new Pageable();
           this.pagination.totalElements = data.totalElements;
@@ -39,10 +42,20 @@ export class MyOrdersClientComponent implements OnInit {
     }
   }
 
+  public initializeDetail(content) {
+    return content.filter(order => {
+      order.detail = false; 
+      return order;
+    })
+  }
+
   public doRefresh(event) {
     InfiniteScroll.doRefresh(event, (complete) => {
       this.orderService.getClientOrders(0).subscribe({
         next:(data) => {
+
+          data.content = this.initializeDetail(data.content);
+
           this.orders = data.content;
           this.pagination = new Pageable();
           this.pagination.totalElements = data.totalElements;
@@ -91,11 +104,35 @@ export class MyOrdersClientComponent implements OnInit {
   }
 
   public showCancel(receiveType : string) : boolean {
-    return receiveType == "BEING_PREPARED";
+    return receiveType == "BEING_PREPARED" 
+    || receiveType == "WAITING_ESTABLISHMENT_APPROVAL";
   }
 
   public getFormattedDate(date : string) : string {
     return DateFormatter.getFormattedDate(date);
+  }
+
+  public changeTextDetailButton(order : any) : string {
+    return order.detail == false ? "Ver detalhes" : "Esconder detalhes";
+  }
+
+  public seeDetails(order : any) : void {
+    order.detail = !order.detail;
+  }
+
+  public cancelOrder(order : any) : void {
+
+    let body = {status: "CANCELED_BY_CLIENT"};
+
+    AlertDefault.confirmationAlert("Quer mesmo cancelar o pedido?", () => {
+      this.orderService.cancelOrderStatus(body, order.id).subscribe({
+        next: data => {
+          AlertDefault.commonAlert("Cancelado com sucesso!");
+          order.status = "CANCELED_BY_CLIENT";
+        }
+      });
+    });
+
   }
 
 }

@@ -5,5 +5,6 @@ export class Order {
     amountPerProduct : any;
     status: string;
     date: string;
+    detail: boolean;
 }
 

@@ -10,6 +10,8 @@ export class OrderService {
 
     private serviceName : string = "signed/client/orders";
 
+    private serviceCancelName : string = "users/order/";
+
     constructor(private dataService : DataService) { }
 
     public requestOrder(body : any) :  Observable<Card> {
@@ -17,7 +19,14 @@ export class OrderService {
     }
 
     public getClientOrders(page : number) : Observable<any> {
-        let params = `?page=${page}&size=10`;
+        let params = `?page=${page}&size=10&sort=date,desc`;
         return this.dataService.get(this.serviceName, true, params);
+    }
+
+    public cancelOrderStatus(body : any, id : number) : Observable<any>{
+
+        let params = `${id}/status`;
+
+        return this.dataService.put(`${this.serviceCancelName}`, body, params);
     }
 }

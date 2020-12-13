@@ -16,7 +16,7 @@ export class UserService {
         return this.dataService.put(this.serviceName, body, '');
     }
 
-    public getUserDetails() :  Observable<User> {
+    public getUserDetails() :  Observable<any> {
         return this.dataService.get(this.serviceName, true);
     }
 }
