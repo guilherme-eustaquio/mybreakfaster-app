@@ -30,4 +30,11 @@ export class InfiniteScroll {
     public static doIHaveToConcatMyPageable(offset : number, pageable : Pageable) : boolean {
         return (offset < pageable.totalPages);
     }
+
+    public static doRefresh(event, callback) {
+      callback(() => {
+        event.target.complete();
+      });
+    }
+
 }

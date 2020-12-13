@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, DoCheck, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageCode } from '../enum/message-code.enum';
 import { SessionHandler } from '../miscellaneous/session-handler.class';
@@ -11,25 +11,12 @@ import { MessageService } from '../services/generic/message.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
 
   constructor(private router: Router, 
     private jwtService : JwtService, 
     private userService : UserService,
     private messageService : MessageService) { }
-
-
-  ngDoCheck() {
-    if(!SessionHandler.getUserDetails()) {
-      this.userService.getUserDetails().subscribe({
-        next: (data) => {
-          SessionHandler.setUserDetails(data);
-          this.messageService.sendMessageToAnotherComponent(MessageCode.SET_MENU_TYPE_NAVIGATION, true);
-          this.messageService.sendMessageToAnotherComponent(MessageCode.SET_MENU_TYPE_USER, {});
-        }
-      })
-    }
-  }
 
   ngOnInit() {
     if(!this.jwtService.loggedIn) {
@@ -42,7 +29,15 @@ export class DashboardComponent implements OnInit, DoCheck, AfterViewInit {
     if(SessionHandler.getUserDetails()) {
       this.messageService.sendMessageToAnotherComponent(MessageCode.SET_MENU_TYPE_NAVIGATION, false);
       this.messageService.sendMessageToAnotherComponent(MessageCode.SET_MENU_TYPE_USER, {});    
-    }  
+    } else {
+      this.userService.getUserDetails().subscribe({
+        next: (data) => {
+          SessionHandler.setUserDetails(data);
+          this.messageService.sendMessageToAnotherComponent(MessageCode.SET_MENU_TYPE_NAVIGATION, true);
+          this.messageService.sendMessageToAnotherComponent(MessageCode.SET_MENU_TYPE_USER, {});
+        }
+      })
+    }
   }
 
   public getCurrentRoute(url : string) : boolean {

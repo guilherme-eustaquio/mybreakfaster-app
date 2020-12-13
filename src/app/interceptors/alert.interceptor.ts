@@ -13,6 +13,15 @@ export class AlertInterceptor implements HttpInterceptor {
         
       return next.handle(req).pipe(
         catchError((error: HttpErrorResponse) => {
+
+          if(error.status == 401) {
+            this.presentAlert({
+              header: `Erro (${error.status})`,
+              subheader: "Você perdeu sua sessão.",
+              message: this.handleExceptionMessage(error.error)
+            });            
+          }
+
           this.presentAlert({
             header: `Erro (${error.status})`,
             subheader: "",

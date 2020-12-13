@@ -21,6 +21,7 @@ import { ListAddressComponent } from './list-address/list-address.component';
 import { MyProductsComponent } from './my-products/my-products.component';
 import { ProductService } from '../services/bussiness/product.service';
 import { ManipulateProductComponent } from './manipulate-product/manipulate-product.component';
+import { MyOrdersClientComponent } from './my-orders-client/my-orders-client.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { ManipulateProductComponent } from './manipulate-product/manipulate-prod
     ManipulateProductComponent,
     ManipulatePromotionComponent,
     PromotionsComponent,
-    ListProductsComponent
+    ListProductsComponent,
+    MyOrdersClientComponent
   ],
   providers: [
     EstablishmentService,

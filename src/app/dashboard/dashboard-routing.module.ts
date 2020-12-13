@@ -17,6 +17,9 @@ const routes: Routes = [
     path: 'establishment', component: DashboardComponent
   },
   {
+    path: 'my-orders-client', component: DashboardComponent
+  },
+  {
     path: 'user-menu', component: DashboardComponent,
   },
   {

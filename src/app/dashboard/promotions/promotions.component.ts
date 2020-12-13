@@ -75,6 +75,22 @@ export class PromotionsComponent implements OnInit {
     });
   }
 
+  public doRefresh(event) {
+    InfiniteScroll.doRefresh(event, (complete) => {
+      this.promotionService.getPromotion(0).subscribe({
+        next:(data) => {
+          this.promotions = data.content;
+          this.pagination = new Pageable();
+          this.pagination.totalElements = data.totalElements;
+          this.pagination.totalPages = data.totalPages;
+          complete();
+          this.offsetPagination = 0;
+
+        }
+      })
+    });
+  }
+  
   public getFormattedPrice(amount: number) {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(amount);
   }

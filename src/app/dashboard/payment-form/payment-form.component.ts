@@ -86,6 +86,21 @@ export class PaymentFormComponent implements OnInit {
     });
   }
 
+  public doRefresh(event) {
+    InfiniteScroll.doRefresh(event, (complete) => {
+      this.paymentService.getCards(0).subscribe({
+        next:(data) => {
+          this.cards = data.content;
+          this.pagination = new Pageable();
+          this.pagination.totalElements = data.totalElements;
+          this.pagination.totalPages = data.totalPages;
+          complete();
+          this.offsetPagination = 0;
+        }
+      })
+    });
+  }
+
   public setMyCardAsMain(card : any) : void {
 
     AlertDefault.confirmationAlert("Deseja deixar esse cartão como principal?", () => {

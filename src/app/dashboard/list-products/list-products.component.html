@@ -8,7 +8,7 @@
           <div>
             <h6 class="my-0">{{b.name}}</h6>
           </div>
-          <span class="text-muted">{{getFormattedPrice(b.price)}} - {{getFormattedPrice(b.price * (1 - b.promotionPercentage / 1000))}}</span>
+          <span class="text-muted">{{getFormattedPrice(b.price)}} - {{getDiscountedPrice(b.price, b.promotionPercentage)}} x ({{b.quantity}})</span>
         </li>
         <li class="list-group-item d-flex justify-content-between">
           <span>Total:</span>
@@ -16,10 +16,9 @@
         </li>
       </ul>
       
-      <input class = "btn btn-danger btn-block mb-3" [routerLink]="['/dashboard/my-products/add-product']" value = "Fazer pedido">
+      <button class = "btn btn-danger btn-block mb-3" (click) = "order()">Fazer pedido</button>
       <hr>
       <h3 class = "title edit-profile">Produtos</h3>
-
 
       <ion-list>
         <div class="row" *ngFor = "let product of products">
@@ -34,16 +33,24 @@
                   </div>
                 </div>  
                 <div class="d-flex justify-content-between">
-
-                  <div *ngIf = "product.promotionPercentage > 0">
-                    <small class="text-muted">Desconto: {{product.promotionPercentage / 1000 | percent}}</small>
-                  </div>
                   <small class="text-muted">Tipo: {{parseProductType(product.type)}}</small>
                 </div>
                 <br>
                 <p class="card-text">{{product.description}}</p>
                 <div class="d-flex justify-content-between align-items-center">                
                   <small class="text-muted">Valor: {{getFormattedPrice(product.price)}}</small>
+                  <div *ngIf = "product.promotionPercentage > 0">
+                    <small class="text-muted">Desconto: {{product.promotionPercentage / 1000 | percent}}</small>
+                  </div>
+                </div>
+                <div class="input-group mt-3 input-group-sm" *ngIf = "product.selected">
+                  <div class="input-group-append">
+
+                    <input type="number" disabled placeholder = "Quantidade" [value] = "product.quantity" class = "form-control mr-3">
+                    
+                    <button class="btn btn-outline-secondary" (click) = "addQuantity(product)" type="button">+</button>
+                    <button class="btn btn-outline-secondary" (click) = "removeQuantity(product)" type="button">-</button>
+                  </div>
                 </div>
               </div>
             </div>

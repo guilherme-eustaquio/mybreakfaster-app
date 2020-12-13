@@ -30,5 +30,12 @@
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Arraste para atualizar"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."></ion-refresher-content>
+    </ion-refresher>
   </div>
 </ion-content>

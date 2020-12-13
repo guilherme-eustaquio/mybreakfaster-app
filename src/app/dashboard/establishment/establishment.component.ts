@@ -30,6 +30,22 @@ export class EstablishmentComponent implements OnInit {
     return this.establishments;
   }
 
+  public doRefresh(event) {
+    InfiniteScroll.doRefresh(event, (complete) => {
+      this.establishmentService.get(0).subscribe({
+        next:(data) => {
+          this.establishments = data.content;
+          this.pagination = new Pageable();
+          this.pagination.totalElements = data.totalElements;
+          this.pagination.totalPages = data.totalPages;
+          complete();
+          this.offsetPagination = 0;
+
+        }
+      })
+    });
+  }
+
   doInfinite(infiniteScroll) {
     
     this.offsetPagination = InfiniteScroll.handlePageable(this.offsetPagination, this.pagination);

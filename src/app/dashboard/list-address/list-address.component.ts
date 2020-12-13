@@ -84,6 +84,22 @@ export class ListAddressComponent implements OnInit {
     });
   }
 
+  public doRefresh(event) {
+    InfiniteScroll.doRefresh(event, (complete) => {
+      this.addressService.getAddresses(0).subscribe({
+        next:(data) => {
+          this.addresses = data.content;
+          this.pagination = new Pageable();
+          this.pagination.totalElements = data.totalElements;
+          this.pagination.totalPages = data.totalPages;
+          complete();
+          this.offsetPagination = 0;
+
+        }
+      })
+    });
+  }
+
   public setMyAddressAsMain(address : any) : void {
 
     AlertDefault.confirmationAlert("Deseja deixar esse endereço como principal?", () => {

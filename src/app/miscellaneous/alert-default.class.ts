@@ -55,11 +55,45 @@ export class AlertDefault {
               handler: () => {
                 no();
               }
+            },
+            {
+              text: 'Cancelar'
             }
           ]
       });
     
       await alert.present();
-  }
+    }
+
+    public static async getPaymentType(type, callback) {
+
+      const alert = await this.alertController.create({
+          header: 'Alerta',
+          message: "Selecione o tipo de pagamento",
+          buttons: [
+            {
+              text: 'Cancelar',
+              handler: () => {
+              }
+            },
+            {
+              text: 'Cartão',
+              handler: () => {
+                type = "CARD";
+                callback(type);
+              }
+            }, 
+            {
+              text: 'Dinheiro',
+              handler: () => {
+                type = "MONEY";
+                callback(type);
+              }
+            }
+          ]
+      });
+    
+      await alert.present();
+    }
 
 }

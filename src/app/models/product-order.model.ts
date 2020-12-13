@@ -1,4 +1,4 @@
-export class Product {
+export class ProductOrder {
     id: number;
     name : string;
     description : string;
@@ -7,5 +7,8 @@ export class Product {
     price : number;
     amount : number;
     promotionPercentage : number; 
+    quantity : number;
+    selected : boolean;
+    value : number;
 }
 
