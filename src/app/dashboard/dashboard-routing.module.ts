@@ -20,6 +20,9 @@ const routes: Routes = [
     path: 'my-orders-client', component: DashboardComponent
   },
   {
+    path: 'my-orders', component: DashboardComponent
+  },
+  {
     path: 'user-menu', component: DashboardComponent,
   },
   {

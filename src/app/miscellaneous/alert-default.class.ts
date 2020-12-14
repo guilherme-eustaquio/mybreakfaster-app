@@ -22,12 +22,13 @@ export class AlertDefault {
           header: 'Alerta',
           subHeader: "",
           message: message,
-          buttons: [              {
+          buttons: [{
             text: 'OK',
             handler: () => {
               callback();
             }
-          }]
+          }],
+          backdropDismiss: false
       });
     
       await alert.present();

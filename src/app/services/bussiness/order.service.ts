@@ -10,6 +10,8 @@ export class OrderService {
 
     private serviceName : string = "signed/client/orders";
 
+    private serviceNameEstablishment : string = "signed/establishment/orders"
+
     private serviceCancelName : string = "users/order/";
 
     constructor(private dataService : DataService) { }
@@ -23,7 +25,12 @@ export class OrderService {
         return this.dataService.get(this.serviceName, true, params);
     }
 
-    public cancelOrderStatus(body : any, id : number) : Observable<any>{
+    public getEstablishmentOrders(page : number) : Observable<any> {
+        let params = `?page=${page}&size=10&sort=date,desc`;
+        return this.dataService.get(this.serviceNameEstablishment, true, params);
+    }
+
+    public setOrderStatus(body : any, id : number) : Observable<any>{
 
         let params = `${id}/status`;
 

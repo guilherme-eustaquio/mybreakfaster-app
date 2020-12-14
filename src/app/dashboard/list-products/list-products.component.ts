@@ -129,9 +129,9 @@ export class ListProductsComponent implements OnInit, AfterViewInit {
       });
 
       product.selected = false;
-      this.total = this.total - ((product.price * (1 - (product.promotionPercentage / 1000))) * product.quantity);
+      this.total = this.total - ((product.price * (1 - (product.promotionPercentage / 100))) * product.quantity);
     } else {
-      this.total = this.total + (product.price * (1 - ((product.promotionPercentage) / 1000))) * product.quantity;
+      this.total = this.total + (product.price * (1 - ((product.promotionPercentage) / 100))) * product.quantity;
       product.selected = true;
       this.bag.push(product);
     }
@@ -162,7 +162,7 @@ export class ListProductsComponent implements OnInit, AfterViewInit {
 
   public getDiscountedPrice(price : number, percent : number) {
 
-    let discounted = price - (price * (1 - percent / 1000));
+    let discounted = price - (price * (1 - percent / 100));
 
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(discounted);
   }
@@ -191,6 +191,7 @@ export class ListProductsComponent implements OnInit, AfterViewInit {
       this.orderService.requestOrder(this.orderRequest).subscribe({
         next: (data) => {
           AlertDefault.commonAlert('Pedido realizado com sucesso!');
+          this.router.navigateByUrl('/dashboard/my-orders-client');
         }
       })
 

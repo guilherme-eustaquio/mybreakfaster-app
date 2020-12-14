@@ -14,7 +14,7 @@ export class OrderConstant {
 
     public static PICK_TYPE = {
         RETRIEVE: "Receber no caixa",
-        DELIEVER: "Entregar delivery"
+        DELIVER: "Entregar delivery"
     };
 
     public static TYPE_PRODUCT_LIST = {

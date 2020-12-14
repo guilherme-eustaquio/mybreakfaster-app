@@ -3,11 +3,11 @@
 	<nav class="nav nav-underline" *ngIf = "!(userType$ | async); else client">
 		<a [routerLink]="['/dashboard/establishment']" [routerLinkActive]="['active']" class="nav-link">
 			<img class = "image-icon" src = "./assets/image/restaurant.svg">
-			Restaurantes
+			Estabelecimentos
 		</a>
 		<a [routerLink]="['/dashboard/my-orders-client']" [routerLinkActive]="['active']" class="nav-link">
 			<img class = "image-icon" src = "./assets/image/order.svg">
-			Meus pedidos
+			Pedidos
 		</a>
 	</nav>
 
@@ -15,14 +15,17 @@
 		<nav class="nav nav-underline" *ngIf = "userType$ | async">
 			<a [routerLink]="['/dashboard/my-products']" [routerLinkActive]="['active']" class="nav-link" *ngIf = "userType$ | async">
 				<img class = "image-icon" src = "./assets/image/products.svg">
-				Meus Produtos
+				Produtos
 			</a>
 
 			<a [routerLink]="['/dashboard/promotions']" [routerLinkActive]="['active']" class="nav-link" *ngIf = "userType$ | async">
 				<img class = "image-icon" src = "./assets/image/promotion.svg">
 				Promoções
 			</a>
-
+			<a [routerLink]="['/dashboard/my-orders']" [routerLinkActive]="['active']" class="nav-link">
+				<img class = "image-icon" src = "./assets/image/order.svg">
+				Pedidos
+			</a>
 		</nav>
 	</ng-template>
 </div>

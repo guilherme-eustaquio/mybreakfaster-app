@@ -32,6 +32,11 @@ export class EstablishmentComponent implements OnInit {
   }
 
   public doRefresh(event) {
+
+    if(SessionHandler.getUserDetails().address.length == 0) {
+      return;
+    }
+
     InfiniteScroll.doRefresh(event, (complete) => {
       this.establishmentService.get(0, SessionHandler.getUserDetails().address[0].city).subscribe({
         next:(data) => {
@@ -97,14 +102,7 @@ export class EstablishmentComponent implements OnInit {
 
     if(this.router.url.includes('/dashboard/establishment')) {
       
-      if(SessionHandler.getUserDetails().address.length == 0) {
-        
-        AlertDefault.obrigatoryRegister("Seja bem vindo! Você não tem ainda um endereço cadastrado!", () => {
-          this.router.navigateByUrl('dashboard/address/add-address');
-        });
-
-        
-      } else {
+      if(SessionHandler.getUserDetails().address.length > 0) {
 
         this.establishmentService.get(0, SessionHandler.getUserDetails().address[0].city).subscribe(establishments => {
           this.pagination = new Pageable();

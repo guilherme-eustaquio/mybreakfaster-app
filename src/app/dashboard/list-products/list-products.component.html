@@ -40,7 +40,7 @@
                 <div class="d-flex justify-content-between align-items-center">                
                   <small class="text-muted">Valor: {{getFormattedPrice(product.price)}}</small>
                   <div *ngIf = "product.promotionPercentage > 0">
-                    <small class="text-muted">Desconto: {{product.promotionPercentage / 1000 | percent}}</small>
+                    <small class="text-muted">Desconto: {{product.promotionPercentage}}%</small>
                   </div>
                 </div>
                 <hr *ngIf = "product.selected">

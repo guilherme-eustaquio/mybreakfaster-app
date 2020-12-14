@@ -1,3 +1,4 @@
+import { SessionHandler } from './../../miscellaneous/session-handler.class';
 import { MessageService } from './../../services/generic/message.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -39,6 +40,13 @@ export class AddAddressComponent implements OnInit {
       next: data => {
         AlertDefault.commonAlert("Endereço criado com sucesso!");
         this.messageService.sendMessageToAnotherComponent(MessageCode.UPDATE_MY_ADDRESS_LIST, data);
+        
+        let userDetails = SessionHandler.getUserDetails();
+
+        userDetails.address[0] = data;
+
+        SessionHandler.setUserDetails(userDetails);
+        
         this.router.navigateByUrl('dashboard/address/addresses');
       }
     })

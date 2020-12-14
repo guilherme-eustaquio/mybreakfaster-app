@@ -23,7 +23,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
   entryComponents: [],
   imports: [
     BrowserModule, 
-    IonicModule.forRoot(), 
+    IonicModule.forRoot({animated: false}), 
     AppRoutingModule, 
     AuthModule, 
     HttpClientModule

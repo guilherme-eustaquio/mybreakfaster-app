@@ -12,7 +12,7 @@ export class AddressService {
 
     constructor(private dataService : DataService) { }
 
-    public addAddress(body : any) :  Observable<Address> {
+    public addAddress(body : any) :  Observable<any> {
         return this.dataService.post(this.serviceName, body, true);
     }
 

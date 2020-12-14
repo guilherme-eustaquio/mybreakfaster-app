@@ -80,6 +80,11 @@ export class ListAddressComponent implements OnInit {
             return obj !== address;
           })
 
+          let userDetails = SessionHandler.getUserDetails();
+          userDetails.address = [];
+
+          SessionHandler.setUserDetails(userDetails);
+
         }
       })      
     });
