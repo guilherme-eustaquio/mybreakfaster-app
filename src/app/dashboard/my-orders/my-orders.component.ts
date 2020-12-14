@@ -92,7 +92,7 @@ export class MyOrdersComponent implements OnInit {
   }
 
   public getStatusType(status : string) : string {
-    return OrderConstant.ORDER_STATUS[status];
+    return OrderConstant.ORDER_STATUS_ESTABLISHMENT[status];
   }
 
   public showAcceptReceivement(receiveType : string) : boolean {
@@ -101,8 +101,7 @@ export class MyOrdersComponent implements OnInit {
   }
 
   public showCancel(receiveType : string) : boolean {
-    return receiveType == "BEING_PREPARED" 
-    || receiveType == "WAITING_ESTABLISHMENT_APPROVAL";
+    return receiveType == "BEING_PREPARED";
   }
 
   public prepareOrderButton(receiveType : string) : boolean {
@@ -131,7 +130,6 @@ export class MyOrdersComponent implements OnInit {
 
     this.orderService.setOrderStatus(body, order.id).subscribe({
       next: data => {
-        AlertDefault.commonAlert("Pedido sendo preparado com sucesso!");
         order.status = body.status;
       }
     });
@@ -157,11 +155,14 @@ export class MyOrdersComponent implements OnInit {
 
     let body = null;
 
-    body = {status: "READY_TO_BE_PICKED"};
+    if(order.pickType == 'DELIVER') {
+      body = {status: "ON_ROUTE"};
+    } else {
+      body = {status: "READY_TO_BE_PICKED"};
+    }
 
     this.orderService.setOrderStatus(body, order.id).subscribe({
       next: data => {
-        AlertDefault.commonAlert("Pedido enviado com sucesso!");
         order.status = body.status;
       }
     });
@@ -187,7 +188,6 @@ export class MyOrdersComponent implements OnInit {
 
     this.orderService.setOrderStatus(body, order.id).subscribe({
       next: data => {
-        AlertDefault.commonAlert("Entregue com sucesso!");
         order.status = body.status;
       }
     });
@@ -197,5 +197,20 @@ export class MyOrdersComponent implements OnInit {
   public deliverOrderButton(status : string) : boolean {
     return status == "READY_TO_BE_PICKED";
   } 
+
+  public confirmDeliveryButton(status : string) : boolean {
+    return status == "DELIVERY_CONFIRMED";
+  }
+
+  public confirmDeliveryOrder(order) : void {
+    
+    let body = {status: "DELIVERED"};
+
+    this.orderService.setOrderStatus(body, order.id).subscribe({
+      next: data => {
+        order.status = body.status;
+      }
+    });
+  }
 
 }

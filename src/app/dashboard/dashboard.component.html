@@ -1,10 +1,10 @@
 <div class = "dashboard bg-light">
     <app-user-navigation></app-user-navigation>
     <app-navigation></app-navigation>
-    <app-establishment [hidden] = "!getCurrentRoute('establishment')"></app-establishment>
-    <app-my-products [hidden] = "!getCurrentRoute('my-products')"></app-my-products>
-    <app-promotions [hidden] = "!getCurrentRoute('promotions')"></app-promotions>
-    <app-list-products [hidden] = "!getCurrentRoute('list-products')"></app-list-products>
-    <app-my-orders-client [hidden] = "!getCurrentRoute('my-orders-client')"></app-my-orders-client>
-    <app-my-orders [hidden] = "!getCurrentRoute('my-orders')"></app-my-orders>
+    <app-establishment *ngIf = "getCurrentRoute('establishment')"></app-establishment>
+    <app-my-products *ngIf = "getCurrentRoute('my-products')"></app-my-products>
+    <app-promotions *ngIf = "getCurrentRoute('promotions')"></app-promotions>
+    <app-list-products *ngIf = "getCurrentRoute('list-products')"></app-list-products>
+    <app-my-orders-client *ngIf = "getCurrentRoute('my-orders-client')"></app-my-orders-client>
+    <app-my-orders *ngIf = "getCurrentRoute('my-orders')"></app-my-orders>
 </div>

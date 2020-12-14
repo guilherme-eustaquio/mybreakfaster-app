@@ -3,12 +3,12 @@ import { OrderConstant } from './../../miscellaneous/order-constant.class';
 import { OrderService } from './../../services/bussiness/order.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessageCode } from 'src/app/enum/message-code.enum';
 import { AlertDefault } from 'src/app/miscellaneous/alert-default.class';
 import { InfiniteScroll } from 'src/app/miscellaneous/infinite-scroll.class';
 import { Order } from 'src/app/models/order.model';
 import { Pageable } from 'src/app/models/pageable.model';
 import { MessageService } from 'src/app/services/generic/message.service';
+import { RateService } from 'src/app/services/bussiness/rate.service';
 
 @Component({
   selector: 'app-my-orders-client',
@@ -21,8 +21,8 @@ export class MyOrdersClientComponent implements OnInit {
   private offsetPagination : number = 0;
   private pagination : Pageable;
   
-  constructor(private orderService : OrderService, 
-    private messageService : MessageService,
+  constructor(private orderService : OrderService,
+    private rateService : RateService,
     private router : Router) { }
 
   ngOnInit() {
@@ -95,17 +95,15 @@ export class MyOrdersClientComponent implements OnInit {
   }
 
   public getStatusType(status : string) : string {
-    return OrderConstant.ORDER_STATUS[status];
+    return OrderConstant.ORDER_STATUS_CLIENT[status];
   }
 
   public showAcceptReceivement(receiveType : string) : boolean {
-    return receiveType == "DELIVERED" || 
-           receiveType == "WITHDRAWN";
+    return receiveType == "ON_ROUTE";
   }
 
   public showCancel(receiveType : string) : boolean {
-    return receiveType == "BEING_PREPARED" 
-    || receiveType == "WAITING_ESTABLISHMENT_APPROVAL";
+    return receiveType == "WAITING_ESTABLISHMENT_APPROVAL";
   }
 
   public getFormattedDate(date : string) : string {
@@ -120,7 +118,6 @@ export class MyOrdersClientComponent implements OnInit {
     order.detail = !order.detail;
   }
   
-
   public cancelOrder(order : any) : void {
 
     let body = {status: "CANCELED_BY_CLIENT"};
@@ -143,15 +140,38 @@ export class MyOrdersClientComponent implements OnInit {
     AlertDefault.confirmationAlert("Você recebeu o pedido?", () => {
       this.orderService.setOrderStatus(body, order.id).subscribe({
         next: data => {
-          AlertDefault.commonAlert("Recebido com sucesso!");
           order.status = body.status;
+
+          this.rateEstablishment(order);
         }
       });
     });
-
   }
 
-  getProductDetail(order : any) : any {
+  public rateEstablishment(order) : void {
+
+    AlertDefault.rateAlert((score) => {
+      
+      let body = {
+        receiver: order.orderProducts[0].product.establishment,
+        score: score
+      }
+
+      this.rateService.rate(body).subscribe({
+        next:data => {
+          AlertDefault.commonAlert("Avaliado com sucesso!");
+          this.router.navigateByUrl('/dashboard/establishment');
+        }
+      });
+
+    });
+  }
+
+  rateEstablishmentButton(receiveType : string) : boolean {
+    return receiveType == "WITHDRAWN";
+  }
+
+  public getProductDetail(order : any) : any {
     
     let orderProducts = order.orderProducts;
     let products = [];

@@ -16,6 +16,30 @@ export class AlertDefault {
         await alert.present();
     } 
 
+    public static async rateAlert(callback) {
+
+      const alert = await AlertDefault.alertController.create({
+          header: 'Avaliação',
+          subHeader: "",
+          message: "Avalie o estabelecimento de 0 a 5",
+          inputs: [{
+            name: 'rate',
+            type: 'number',
+            min: 0,
+            max: 5
+          }],
+          buttons: [{
+            text: 'Avaliar',
+            handler: (alertData) => {
+              callback(alertData.rate);
+            }
+          }],
+          backdropDismiss: false
+      });
+    
+      await alert.present();
+    } 
+
     public static async obrigatoryRegister(message, callback) {
 
       const alert = await AlertDefault.alertController.create({

@@ -5,4 +5,5 @@ export class Establishment {
     name: string;
     phoneNumber: string;
     addresses: Address[];
+    averageRating: number;
 }

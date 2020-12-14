@@ -30,6 +30,8 @@
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
                         <button (click) = "confirmOrder(order)" *ngIf = "showAcceptReceivement(order.status)" type="button" class="btn btn-sm btn-outline-secondary">Confirmar recebimento</button>
+                        <button (click) = "rateEstablishment(order)" *ngIf = "rateEstablishmentButton(order.status)" type="button" class="btn btn-sm btn-outline-secondary">Avaliar estabelecimento</button>
+
                         <button (click) = "seeDetails(order)" type="button" class="btn btn-sm btn-outline-secondary">{{changeTextDetailButton(order)}}</button>
                         <button *ngIf = "showCancel(order.status)" (click) = "cancelOrder(order)" type="button" class="btn btn-sm btn-outline-secondary">Cancelar</button>
                       </div>

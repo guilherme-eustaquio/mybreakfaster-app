@@ -34,7 +34,7 @@
                         <button *ngIf = "prepareOrderButton(order.status)" (click)="prepareOrder(order)" type="button" class="btn btn-sm btn-outline-secondary">Preparar produto</button>
                         <button *ngIf = "sendOrderButton(order.status)" (click) = "sendOrder(order)" type="button" class="btn btn-sm btn-outline-secondary">Produto pronto</button>
                         <button *ngIf = "deliverOrderButton(order.status)" (click) = "deliverOrder(order)" type="button" class="btn btn-sm btn-outline-secondary">Entregar</button>
-
+                        <button *ngIf = "confirmDeliveryButton(order.status)" (click) = "confirmDeliveryOrder(order)" type="button" class="btn btn-sm btn-outline-secondary">Entregue</button>
                         <button (click) = "seeDetails(order)" type="button" class="btn btn-sm btn-outline-secondary">{{changeTextDetailButton(order)}}</button>
                         <button *ngIf = "showCancel(order.status)" (click) = "cancelOrder(order)" type="button" class="btn btn-sm btn-outline-secondary">Cancelar</button>
                       </div>
